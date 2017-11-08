@@ -1,0 +1,42 @@
+version: '2'
+services:
+  db:
+    image: mariadb:10.3
+    volumes:
+      - "db-data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    depends_on:
+      - db
+    build: ./
+    image: willopez/wordpress
+    volumes:
+      - "site-data:/var/www/wp-content"
+    ports:
+      - "80:80"
+    environment:
+      WP_DB_HOST: db
+      WP_DB_PASSWORD: wordpress
+      WP_DB_NAME: wordpress
+      WP_DB_USER: wordpress
+      WP_TABLE_PREFIX: wp_
+      WP_CONTENT_DIR: /var/www/wp-content
+      WP_CONTENT_DIRNAME: wp-content
+      FS_METHOD: direct
+      # For debugging only:
+      #WP_DEBUG: "true"
+      #WP_DEBUG_DISPLAY: "true"
+
+volumes:
+  db-data:
+  site-data:
+
+networks:
+  default:
+    external:
+      name: backend

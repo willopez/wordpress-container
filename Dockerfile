@@ -1,4 +1,6 @@
-FROM alpine:3.6
+ARG ALPINE_VER
+
+FROM alpine:${ALPINE_VER}
 LABEL Maintainer="Will Lopez <will@noomadigital>" \
       Description="WordPress container with Nginx 1.12 & PHP-FPM 7.1 based on Alpine Linux."
 

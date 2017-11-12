@@ -2,6 +2,7 @@ version: '2'
 services:
   db:
     image: mariadb:10.3
+    container_name: wpdb
     volumes:
       - "db-data:/var/lib/mysql"
     environment:
@@ -11,10 +12,10 @@ services:
       MYSQL_PASSWORD: wordpress
 
   wordpress:
+    container_name: wordpress
     depends_on:
       - db
-    build: ./
-    image: willopez/wordpress:0.2.0
+    image: willopez/wordpress:4.8.3-nginx-1.12
     volumes:
       - "site-data:/var/www/wp-content"
     ports:
@@ -26,6 +27,8 @@ services:
       DB_USER: wordpress
       WORDPRESS_SITE_URL: http://localhost
       FS_METHOD: direct
+      WP_REDIS_HOST: wp-redis
+      WP_CACHE_KEY_SALT: 'example.local'
       # For debugging only:
       #WP_DEBUG: "true"
       #WP_DEBUG_DISPLAY: "true"

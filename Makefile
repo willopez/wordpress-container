@@ -1,7 +1,7 @@
 -include env_make
 
 ALPINE_VER ?= 3.6
-WORDPRESS_VER ?= 4.8.3
+WORDPRESS_VER ?= 4.9
 NGINX_VER ?= 1.12
 TAG ?= $(WORDPRESS_VER)-nginx-$(NGINX_VER)
 

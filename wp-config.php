@@ -15,6 +15,12 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/');
 }
 
+if ( $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' )
+{
+    $_SERVER['HTTPS']       = 'on';
+    $_SERVER['SERVER_PORT'] = 443;
+}
+
 require_once(ABSPATH . 'wp-secrets.php');
 require_once(ABSPATH . 'wp-settings.php');
 
